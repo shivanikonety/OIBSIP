@@ -1,0 +1,300 @@
+/* ================================
+   RESET
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   BODY
+================================ */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        135deg,
+        #667eea,
+        #764ba2
+    );
+
+    padding: 20px;
+}
+
+
+/* ================================
+   MAIN CONTAINER
+================================ */
+
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+
+/* ================================
+   CARD
+================================ */
+
+.converter-card {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.header {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.temperature-icon {
+    font-size: 50px;
+
+    margin-bottom: 10px;
+}
+
+
+.header h1 {
+    color: #333;
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+
+.header p {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ================================
+   INPUT GROUP
+================================ */
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+
+.input-group label {
+    display: block;
+
+    font-weight: bold;
+
+    color: #333;
+
+    margin-bottom: 8px;
+}
+
+
+.input-group input,
+.input-group select {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 2px solid #ddd;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #667eea;
+
+    box-shadow:
+        0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+
+/* ================================
+   ERROR MESSAGE
+================================ */
+
+.error-message {
+    color: #e74c3c;
+
+    font-size: 14px;
+
+    margin-top: 7px;
+
+    min-height: 20px;
+}
+
+
+/* ================================
+   CONVERT BUTTON
+================================ */
+
+.convert-btn {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #667eea;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+.convert-btn:hover {
+    background: #5568d8;
+
+    transform: translateY(-2px);
+}
+
+
+.convert-btn:active {
+    transform: translateY(0);
+}
+
+
+/* ================================
+   RESULTS
+================================ */
+
+.results {
+    margin-top: 30px;
+
+    padding: 20px;
+
+    background: #f7f8ff;
+
+    border-radius: 15px;
+}
+
+
+.results h2 {
+    text-align: center;
+
+    color: #333;
+
+    font-size: 20px;
+
+    margin-bottom: 15px;
+}
+
+
+.result-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 10px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+
+.result-item span {
+    color: #555;
+
+    font-weight: 500;
+}
+
+
+.result-item strong {
+    color: #667eea;
+
+    font-size: 18px;
+}
+
+
+/* ================================
+   INFORMATION
+================================ */
+
+.info {
+    margin-top: 20px;
+
+    padding: 12px;
+
+    background: #fff8e1;
+
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+
+.info p {
+    color: #7a6500;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+
+@media (max-width: 500px) {
+
+    .converter-card {
+        padding: 25px 20px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .temperature-icon {
+        font-size: 42px;
+    }
+
+}
