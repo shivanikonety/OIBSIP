@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="dashboard-card">
+    <div class="logo">Study<span>Mate</span></div>
+    
+    <div class="user-badge" id="userBadge">Logged in</div>
+    
+    <h1>Welcome back!</h1>
+    <p id="welcomeText">You are successfully logged in to your protected dashboard.</p>
+
+    <button class="btn logout-btn" id="logoutBtn">Logout</button>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // PROTECTION: redirect if not logged in
+    if (!isLoggedIn()) {
+      window.location.href = "login.html";
+    }
+
+    // Show current user
+    const currentUser = getCurrentUser();
+    document.getElementById("userBadge").textContent = `Logged in as ${currentUser}`;
+    document.getElementById("welcomeText").textContent = 
+      `Hello, ${currentUser}! This page is only accessible after successful login.`;
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      clearSession();
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

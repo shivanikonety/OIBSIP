@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="logo">Study<span>Mate</span></div>
+    <p class="subtitle">Welcome back</p>
+
+    <div id="message" class="message"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="identifier">Username or Email</label>
+        <input type="text" id="identifier" placeholder="Enter username or email" required autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <p class="switch-link">
+      Don't have an account? <a href="register.html">Register</a>
+    </p>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    if (isLoggedIn()) {
+      window.location.href = "dashboard.html";
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideMessage("message");
+
+      const identifier = document.getElementById("identifier").value.trim();
+      const password = document.getElementById("password").value;
+
+      // Empty check
+      if (!identifier || !password) {
+        showMessage("message", "Please fill in all fields.");
+        return;
+      }
+
+      const users = getUsers();
+      const hashedInput = await hashPassword(password);
+
+      // Find user by username OR email
+      const user = users.find(u => 
+        u.username.toLowerCase() === identifier.toLowerCase() || 
+        u.email === identifier.toLowerCase()
+      );
+
+      // Generic error (never reveal which field is wrong)
+      if (!user || user.password !== hashedInput) {
+        showMessage("message", "Invalid username/email or password.");
+        return;
+      }
+
+      // Success → set session
+      setSession(user.username);
+      showMessage("message", "Login successful! Redirecting...", "success");
+
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 800);
+    });
+  </script>
+</body>
+</html>

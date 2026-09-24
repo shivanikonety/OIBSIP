@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register – StudyMate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="logo">Study<span>Mate</span></div>
+    <p class="subtitle">Create your account</p>
+
+    <div id="message" class="message"></div>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Choose a username" required autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Min 8 characters + 1 number" required autocomplete="new-password">
+      </div>
+
+      <button type="submit" class="btn">Register</button>
+    </form>
+
+    <p class="switch-link">
+      Already have an account? <a href="login.html">Login</a>
+    </p>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    if (isLoggedIn()) {
+      window.location.href = "dashboard.html";
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideMessage("message");
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value;
+
+      // Basic empty check
+      if (!username || !email || !password) {
+        showMessage("message", "Please fill in all fields.");
+        return;
+      }
+
+      // Password validation
+      if (!isValidPassword(password)) {
+        showMessage("message", "Password must be at least 8 characters and contain at least one number.");
+        return;
+      }
+
+      const users = getUsers();
+
+      // Duplicate check (username OR email)
+      const exists = users.some(u => 
+        u.username.toLowerCase() === username.toLowerCase() || 
+        u.email === email
+      );
+
+      if (exists) {
+        showMessage("message", "Username or email already exists. Please choose another.");
+        return;
+      }
+
+      // Hash password
+      const hashedPassword = await hashPassword(password);
+
+      // Save new user
+      users.push({
+        username,
+        email,
+        password: hashedPassword
+      });
+      saveUsers(users);
+
+      showMessage("message", "Registration successful! Redirecting to login...", "success");
+
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
